@@ -45,6 +45,7 @@ public class Database {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
 
+
         for (int i = 0; i < entities.size(); i++) {
             if (entities.get(i).id == e.id) {
                 entities.set(i - 1, e.copy()); // Update the entity in the database
