@@ -45,7 +45,6 @@ public class Database {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
 
-
         for (int i = 0; i < entities.size(); i++) {
             if (entities.get(i).id == e.id) {
                 entities.set(i - 1, e.copy()); // Update the entity in the database
@@ -55,7 +54,7 @@ public class Database {
         throw new EntityNotFoundException("Entity with ID " + e.id + " not found.");
     }
     public static void registerValidator(int entityCode,Validator validator) {
-        if (validators.get(entityCode) == null)
+        if (validators.get(entityCode) != null)
             throw new IllegalArgumentException("Validator for this entity code already exists. Please choose a different entity code");
         validators.put(entityCode, validator);
     }
