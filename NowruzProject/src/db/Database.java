@@ -1,8 +1,9 @@
 package db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import db.exception.EntityNotFoundException;
-import db.Entity;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
