@@ -21,6 +21,7 @@ public class Database {
         e.id = nextId++;
         entities.add(e.copy());
     }
+
     public static Entity get(int id) {
         for (Entity e : entities) {
             if (e.id == id) {
@@ -29,20 +30,28 @@ public class Database {
         }
         throw new EntityNotFoundException(id);
     }
+
     public static void delete(int id) {
         for (Entity entity: entities) {
             if (entity.id == id) {
-                entities.remove(id);
+                entities.remove(id - 1);
                 return;
             }
         }
         throw new EntityNotFoundException(id);
     }
+
     public static void update(Entity e) throws InvalidEntityException {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
 
-        for (int i = 0; i < entities.size(); i++)
+
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i).id == e.id) {
+                entities.set(i - 1, e.copy()); // Update the entity in the database
+                return;
+            }
+        }
         throw new EntityNotFoundException("Entity with ID " + e.id + " not found.");
     }
     public static void registerValidator(int entityCode,Validator validator) {
