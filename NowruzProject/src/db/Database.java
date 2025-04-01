@@ -6,11 +6,16 @@ import db.Entity;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
+    private static HashMap<Integer, Validator> validators;
+
     static int nextId = 1; // Next ID to be assigned to a new entity
 
     private Database() {}   // Private constructor to prevent instantiation
 
     public static void add(Entity e) {
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
         e.id = nextId++;
         entities.add(e.copy());
     }
@@ -32,6 +37,9 @@ public class Database {
         throw new EntityNotFoundException(id);
     }
     public static void update(Entity e) {
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
         for (int i = 0; i < entities.size(); i++) {
             if (entities.get(i).id == e.id) {
                 entities.set(i, e.copy()); // Update the entity in the database
@@ -39,5 +47,10 @@ public class Database {
             }
         }
         throw new EntityNotFoundException("Entity with ID " + e.id + " not found.");
+    }
+    public static void registerValidator(int entityCode,Validator validator) {
+        if (validators.get(entityCode) == null)
+            throw new IllegalArgumentException("Validator for this entity code already exists. Please choose a different entity code");
+        validators.put(entityCode, validator);
     }
 }
