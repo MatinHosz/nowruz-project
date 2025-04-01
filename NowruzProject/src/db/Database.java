@@ -8,7 +8,7 @@ import db.exception.InvalidEntityException;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
-    private static HashMap<Integer, Validator> validators;
+    private static HashMap<Integer, Validator> validators = new HashMap<>();
 
     static int nextId = 1; // Next ID to be assigned to a new entity
 
