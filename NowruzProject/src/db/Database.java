@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import db.exception.EntityNotFoundException;
+import db.exception.InvalidEntityException;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
@@ -13,7 +14,7 @@ public class Database {
 
     private Database() {}   // Private constructor to prevent instantiation
 
-    public static void add(Entity e) {
+    public static void add(Entity e) throws InvalidEntityException {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
 
@@ -37,16 +38,11 @@ public class Database {
         }
         throw new EntityNotFoundException(id);
     }
-    public static void update(Entity e) {
+    public static void update(Entity e) throws InvalidEntityException {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
 
-        for (int i = 0; i < entities.size(); i++) {
-            if (entities.get(i).id == e.id) {
-                entities.set(i, e.copy()); // Update the entity in the database
-                return;
-            }
-        }
+        for (int i = 0; i < entities.size(); i++)
         throw new EntityNotFoundException("Entity with ID " + e.id + " not found.");
     }
     public static void registerValidator(int entityCode,Validator validator) {
