@@ -2,6 +2,7 @@ package db;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Date;
 
 import db.exception.EntityNotFoundException;
 import db.exception.InvalidEntityException;
@@ -17,6 +18,11 @@ public class Database {
     public static void add(Entity e) throws InvalidEntityException {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
+
+        if (e instanceof Trackable) {
+            e.creationDate = new Date();
+            e.lastModificationDate = new Date();
+        }
 
         e.id = nextId++;
         entities.add(e.copy());
@@ -44,6 +50,9 @@ public class Database {
     public static void update(Entity e) throws InvalidEntityException {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
+
+        if (e instanceof Trackable)
+            e.lastModificationDate = new Date();
 
         for (int i = 0; i < entities.size(); i++) {
             if (entities.get(i).id == e.id) {
