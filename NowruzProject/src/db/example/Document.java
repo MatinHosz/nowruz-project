@@ -12,6 +12,7 @@ public class Document extends Entity implements Trackable {
     public Date creationDate;
     public Date lastModificationDate;
 
+
     public Document(int id, String content) {
         super(id);
         this.content = content;
@@ -20,7 +21,6 @@ public class Document extends Entity implements Trackable {
     public void setCreationDate(Date date) {
         creationDate = date;
     }
-
     public Date getCreationDate() {
         return creationDate;
     }
@@ -28,7 +28,6 @@ public class Document extends Entity implements Trackable {
     public void setLastModificationDate(Date date) {
         lastModificationDate = date;
     }
-
     public Date getLastModificationDate() {
         return lastModificationDate;
     }
