@@ -12,7 +12,8 @@ public class Document extends Entity implements Trackable {
     public Date creationDate;
     public Date lastModificationDate;
 
-    public Document (int id, String content) {
+
+    public Document(int id, String content) {
         super(id);
         this.content = content;
     }
@@ -38,7 +39,6 @@ public class Document extends Entity implements Trackable {
         copyDocument.creationDate = (this.lastModificationDate != null) ? new Date(this.lastModificationDate.getTime()) : null;
         return copyDocument;
     }
-
     @Override
     public int getEntityCode() { return DOCUMENT_ENTITY_CODE; }
 }
