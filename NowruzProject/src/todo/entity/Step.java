@@ -4,7 +4,7 @@ import db.Entity;
 
 public class Step extends Entity {
     public static final int STEP_ENTITY_CODE = 2;
-    enum Status {
+    public enum Status {
         NotStarted,
         Completed
     }
