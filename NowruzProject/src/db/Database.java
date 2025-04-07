@@ -63,7 +63,7 @@ public class Database {
         throw new EntityNotFoundException("Entity with ID " + e.id + " not found.");
     }
     public static void registerValidator(int entityCode,Validator validator) {
-        if (validators.get(entityCode) == null)
+        if (validators.get(entityCode) != null)
             throw new IllegalArgumentException("Validator for this entity code already exists. Please choose a different entity code");
         validators.put(entityCode, validator);
     }
