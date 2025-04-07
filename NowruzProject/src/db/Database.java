@@ -74,4 +74,13 @@ public class Database {
                     "Validator for this entity code already exists. Please choose a different entity code");
         validators.put(entityCode, validator);
     }
+
+    public static ArrayList<Entity> getAll(int entityCode) {
+        ArrayList<Entity> entityList = new ArrayList<>();
+        for (Entity entity : entities) {
+            if (entity.getEntityCode() == entityCode)
+                entityList.add(entity);
+        }
+        return entityList;
+    }
 }
