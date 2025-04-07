@@ -13,15 +13,18 @@ public class Database {
 
     static int nextId = 1; // Next ID to be assigned to a new entity
 
-    private Database() {}   // Private constructor to prevent instantiation
+    private Database() {
+    } // Private constructor to prevent instantiation
 
     public static void add(Entity e) throws InvalidEntityException {
-        Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+        if (validators.get(e.getEntityCode()) != null) {
+            Validator validator = validators.get(e.getEntityCode());
+            validator.validate(e);
+        }
 
         if (e instanceof Trackable) {
-            e.creationDate = new Date();
-            e.lastModificationDate = new Date();
+            ((Trackable) e).setCreationDate(new Date());
+            ((Trackable) e).setLastModificationDate(new Date());
         }
 
         e.id = nextId++;
@@ -38,9 +41,9 @@ public class Database {
     }
 
     public static void delete(int id) {
-        for (Entity entity: entities) {
+        for (Entity entity : entities) {
             if (entity.id == id) {
-                entities.remove(id - 1);
+                entities.remove(id);
                 return;
             }
         }
@@ -48,23 +51,27 @@ public class Database {
     }
 
     public static void update(Entity e) throws InvalidEntityException {
-        Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+        if (validators.get(e.getEntityCode()) != null) {
+            Validator validator = validators.get(e.getEntityCode());
+            validator.validate(e);
+        }
 
         if (e instanceof Trackable)
-            e.lastModificationDate = new Date();
+            ((Trackable) e).setLastModificationDate(new Date());
 
         for (int i = 0; i < entities.size(); i++) {
             if (entities.get(i).id == e.id) {
-                entities.set(i - 1, e.copy()); // Update the entity in the database
+                entities.set(i, e.copy()); // Update the entity in the database
                 return;
             }
         }
         throw new EntityNotFoundException("Entity with ID " + e.id + " not found.");
     }
-    public static void registerValidator(int entityCode,Validator validator) {
+
+    public static void registerValidator(int entityCode, Validator validator) {
         if (validators.get(entityCode) != null)
-            throw new IllegalArgumentException("Validator for this entity code already exists. Please choose a different entity code");
+            throw new IllegalArgumentException(
+                    "Validator for this entity code already exists. Please choose a different entity code");
         validators.put(entityCode, validator);
     }
 }
