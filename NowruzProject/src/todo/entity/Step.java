@@ -13,8 +13,9 @@ public class Step extends Entity {
     public Status status;
     public int taskRef;
 
-    public Step() {
-        //TODO complete constructor
+    public Step(String title, int taskRef) {
+        this.title = title;
+        this.taskRef = taskRef;
     }
 
     @Override
