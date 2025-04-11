@@ -16,6 +16,7 @@ public class Step extends Entity {
     public Step(String title, int taskRef) {
         this.title = title;
         this.taskRef = taskRef;
+        this.status = Status.NotStarted;
     }
 
     @Override

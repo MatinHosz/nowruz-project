@@ -15,13 +15,16 @@ public class Task extends Entity implements Trackable {
 
     public String title;
     public String description;
-    private Date creationDate;
-    private Date lastModificationDate;
     public Date dueDate;
     public Status status;
 
-    public Task(String title, String description,) {
-        //TODO complete constructor
+    private Date creationDate;
+    private Date lastModificationDate;
+
+    public Task(String title, String description,Date dueDate) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
     }
 
     @Override
