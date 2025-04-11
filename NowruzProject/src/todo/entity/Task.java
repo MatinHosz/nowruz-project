@@ -47,9 +47,13 @@ public class Task extends Entity implements Trackable {
     public int getEntityCode() {
         return TASK_ENTITY_CODE;
     }
+
     @Override
     public Task copy() {
-        //TODO complete copy method
-        Task copyTask = new Task()
+        Task copyTask = new Task(title, description, dueDate);
+        copyTask.status = status;
+        copyTask.setCreationDate(creationDate);
+        copyTask.setLastModificationDate(lastModificationDate);
+        return copyTask;
     }
 }

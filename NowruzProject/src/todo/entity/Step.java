@@ -10,8 +10,8 @@ public class Step extends Entity {
     }
 
     public String title;
-    public Status status;
     public int taskRef;
+    public Status status;
 
     public Step(String title, int taskRef) {
         this.title = title;
@@ -21,8 +21,11 @@ public class Step extends Entity {
 
     @Override
     public int getEntityCode() { return STEP_ENTITY_CODE; }
+
     @Override
     public Step copy() {
-        //TODO complete copy method
+        Step copyStep = new Step(title, taskRef);
+        copyStep.status = status;
+        return copyStep;
     }
 }
