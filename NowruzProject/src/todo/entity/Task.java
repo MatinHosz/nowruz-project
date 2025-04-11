@@ -32,9 +32,7 @@ public class Task extends Entity implements Trackable {
         return creationDate;
     }
     @Override
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+    public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
 
     @Override
     public Date getLastModificationDate() {

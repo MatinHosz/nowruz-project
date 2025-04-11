@@ -35,5 +35,25 @@ public class TaskService {
         task.status = Task.Status.InProgress;
         Database.update(task);
     }
-
+    public static void updateTitle(int id, String title) throws InvalidEntityException {
+        Task task = (Task) Database.get(id);
+        task.title = title;
+        Database.update(task);
+    }
+    public static void updateDescription(int id, String description) throws InvalidEntityException {
+        Task task = (Task) Database.get(id);
+        task.description = description;
+        Database.update(task);
+    }
+    public static void dueDate(int id, String dueDateStr) throws InvalidEntityException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date dueDate = formatter.parse(dueDateStr);
+            Task task = (Task) Database.get(id);
+            task.dueDate = dueDate;
+            Database.update(task);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Invalid date format.");
+        }
+    }
 }
