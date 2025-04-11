@@ -23,4 +23,9 @@ public class StepService {
         step.status = Step.Status.Completed;
         Database.update(step);
     }
+    public static void updateTitle(int id, String title) throws InvalidEntityException {
+        Step step = (Step) Database.get(id);
+        step.title = title;
+        Database.update(step);
+    }
 }
