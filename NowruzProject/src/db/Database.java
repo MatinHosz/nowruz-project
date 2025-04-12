@@ -6,12 +6,13 @@ import java.util.Date;
 
 import db.exception.EntityNotFoundException;
 import db.exception.InvalidEntityException;
+import todo.entity.Step;
 
 public class Database {
     private static ArrayList<Entity> entities = new ArrayList<>();
     private static HashMap<Integer, Validator> validators = new HashMap<>();
 
-    static int nextId = 1; // Next ID to be assigned to a new entity
+    public static int currentEntityID = 1; // Next ID to be assigned to a new entity
 
     private Database() {
     } // Private constructor to prevent instantiation
@@ -27,7 +28,7 @@ public class Database {
             ((Trackable) e).setLastModificationDate(new Date());
         }
 
-        e.id = nextId++;
+        e.id = currentEntityID++;
         entities.add(e.copy());
     }
 
@@ -82,5 +83,17 @@ public class Database {
                 entityList.add(entity);
         }
         return entityList;
+    }
+    public static ArrayList<Step> getTasksSteps(int taskRef) {
+        ArrayList<Step> stepList = new ArrayList<>();
+        for (Entity entity: entities) {
+            if (entity.getEntityCode() != Step.STEP_ENTITY_CODE)
+                continue;
+            if (((Step) entity).taskRef == taskRef)
+                stepList.add((Step) entity);
+        }
+        if (stepList.isEmpty())
+            return null;
+        return stepList;
     }
 }
