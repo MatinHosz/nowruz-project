@@ -8,9 +8,9 @@ import java.util.Date;
 public class Task extends Entity implements Trackable {
     public static final int TASK_ENTITY_CODE = 1;
     public enum Status{
-        NotStarted,
-        InProgress,
-        Completed
+        NOT_STARTED,
+        IN_PROGRESS,
+        COMPLETED
     }
 
     public String title;
